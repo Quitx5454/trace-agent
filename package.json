@@ -1,0 +1,36 @@
+{
+  "name": "forge-agent",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir=dist --target=bun",
+    "type-check": "tsc --noEmit",
+    "test-forge": "bun run test-forge.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.100.1",
+    "@coinbase/cdp-sdk": "^1.51.0",
+    "@lucid-agents/core": "^2.5.0",
+    "@lucid-agents/express": "^0.5.6",
+    "@lucid-agents/http": "^1.10.2",
+    "@lucid-agents/identity": "^2.5.0",
+    "@lucid-agents/payments": "^2.5.0",
+    "@lucid-agents/wallet": "^0.6.2",
+    "@x402/core": "^2.13.0",
+    "@x402/evm": "^2.13.0",
+    "@x402/express": "^2.13.0",
+    "@x402/fetch": "^2.13.0",
+    "ethers": "^6.13.0",
+    "express": "^4.19.2",
+    "fast-json-stable-stringify": "^2.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "bun-types": "^1.3.0",
+    "typescript": "^5.9.2"
+  }
+}
