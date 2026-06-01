@@ -17,6 +17,8 @@ wrapper.use((req, res, next) => {
   if (req.method === "OPTIONS") return res.status(200).end();
   next();
 });
+// xgate fetches the root URL expecting JSON — redirect to the Lucid manifest
+wrapper.get('/', (_req, res) => res.redirect(301, '/.well-known/agent.json'));
 wrapper.use('/', agentApp);
 
 const server = wrapper.listen(port, () => {
