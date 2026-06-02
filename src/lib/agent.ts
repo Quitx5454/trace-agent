@@ -12,6 +12,7 @@ import { registerExactEvmScheme } from "@x402/evm/exact/server";
 import { getAuthHeaders } from "@coinbase/cdp-sdk/auth";
 import { forge, type ForgeInput, AGENT_REGISTRY_ADDRESS } from "./forge";
 import { processTrace, type TraceInput } from "./trace";
+import { parseEnvelope, wrapResponse, withEnvelope } from "./envelope";
 
 const CHAIN_ID = parseInt(process.env.CHAIN_ID ?? "8453"); // Base Mainnet
 const RPC_URL = process.env.RPC_URL ?? "https://mainnet.base.org";
@@ -182,12 +183,14 @@ const inputSchema = z.object({
 addEntrypoint({
   key: "forge",
   description: "Produce an ERC-8004 feedback document, its keccak-256 hash, an IPFS pin, and ABI-encoded giveFeedback() calldata",
-  input: inputSchema,
+  // Accept either the Distill envelope ({ ..., payload: <ForgeInput> }) or the
+  // legacy bare ForgeInput. The handler unwraps via parseEnvelope.
+  input: withEnvelope(inputSchema),
   handler: async (ctx) => {
-    const input = ctx.input as ForgeInput;
+    const { payload, sessionId, agentId } = parseEnvelope<ForgeInput>(ctx.input);
     const clientAddress = process.env.PAYMENTS_RECEIVABLE_ADDRESS ?? "";
-    const output = await forge(input, clientAddress);
-    return { output };
+    const output = await forge(payload, clientAddress);
+    return { output: wrapResponse(output, sessionId, agentId, "ok") };
   },
 });
 
@@ -204,10 +207,13 @@ const traceInputSchema = z.object({
 addEntrypoint({
   key: "trace",
   description: "Normalize a raw agent execution log into structured steps + summary, and emit a forge_ready block (suggested ERC-8004 score & tags)",
-  input: traceInputSchema,
+  // Accept either the Distill envelope ({ ..., payload: <TraceInput> }) or the
+  // legacy bare TraceInput. The handler unwraps via parseEnvelope.
+  input: withEnvelope(traceInputSchema),
   handler: async (ctx) => {
-    const output = await processTrace(ctx.input as TraceInput);
-    return { output };
+    const { payload, sessionId, agentId } = parseEnvelope<TraceInput>(ctx.input);
+    const output = await processTrace(payload);
+    return { output: wrapResponse(output, sessionId, agentId, "ok") };
   },
 });
 
