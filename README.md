@@ -181,7 +181,7 @@ AGENT_ID=6482
 This service is discoverable two ways:
 
 - **x402 Bazaar** — the server registers `bazaarResourceServerExtension` (from `@x402/extensions`) on the resource server *before* the payment middleware, and the `/entrypoints/trace/invoke` route declares its input/output examples + JSON Schema via `declareDiscoveryExtension({ bodyType: "json", ... })`. That discovery metadata rides in the `PAYMENT-REQUIRED` header of every `402` challenge, so the CDP facilitator indexes it into the [x402 Bazaar](https://docs.cdp.coinbase.com) catalog after a settled payment. (The discovery extension lives in the **header**, not the JSON body — the body is reshaped for crawlers like xgate.)
-- **A2A Agent Card** — a full, static [A2A](https://a2a-protocol.org) Agent Card is served at [`/.well-known/agent-card.json`](https://forge-agent-production.up.railway.app/.well-known/agent-card.json) (also mirrored at [`/.well-known/trace-agent-card.json`](https://forge-agent-production.up.railway.app/.well-known/trace-agent-card.json)) — public, no paywall — with skills, `securitySchemes`, x402 payment metadata, and the ERC-8004 registration (agentId `6482`).
+- **A2A Agent Card** — a full, static [A2A](https://a2a-protocol.org) Agent Card is served at [`/.well-known/agent-card.json`](https://trace-agent-production.up.railway.app/.well-known/agent-card.json) (also mirrored at [`/.well-known/trace-agent-card.json`](https://trace-agent-production.up.railway.app/.well-known/trace-agent-card.json)) — public, no paywall — with skills, `securitySchemes`, x402 payment metadata, and the ERC-8004 registration (agentId `6482`).
 
 The MCP Gateway also exposes this as the `trace` tool — see the [MCP Gateway docs](https://quitx5454.github.io/pulse/docs/mcp-gateway.html).
 

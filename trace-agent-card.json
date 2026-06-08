@@ -4,7 +4,7 @@
   "name": "Trace",
   "description": "Parses raw agent execution logs into structured JSON steps and a summary, emitting a forge-ready block with a suggested ERC-8004 score and tags.",
   "version": "1.0.0",
-  "url": "https://forge-agent-production.up.railway.app",
+  "url": "https://trace-agent-production.up.railway.app",
   "provider": {
     "organization": "Distill",
     "url": "https://quitx5454.github.io/pulse"
@@ -12,7 +12,7 @@
   "endpoints": [
     {
       "name": "invoke",
-      "url": "https://forge-agent-production.up.railway.app/entrypoints/trace/invoke",
+      "url": "https://trace-agent-production.up.railway.app/entrypoints/trace/invoke",
       "method": "POST",
       "protocolBinding": "HTTP+JSON"
     }
@@ -67,7 +67,7 @@
           "payTo": "0x104b5768FE505c400dd98F447665CB5c6fca388A",
           "maxAmountRequired": "10000",
           "maxTimeoutSeconds": 60,
-          "resource": "https://forge-agent-production.up.railway.app/entrypoints/trace/invoke",
+          "resource": "https://trace-agent-production.up.railway.app/entrypoints/trace/invoke",
           "description": "Parse a raw agent execution log into structured steps + a forge_ready block (suggested score & tags).",
           "mimeType": "application/json"
         }

@@ -70,7 +70,7 @@ const agent = await createAgent({
                     agentId: process.env.AGENT_ID,
                     agentRegistry: `eip155:${CHAIN_ID}:${AGENT_REGISTRY_ADDRESS}`,
                     agentAddress: `eip155:${CHAIN_ID}:${AGENT_ADDRESS}`,
-                    agentURI: `https://${process.env.AGENT_DOMAIN ?? "forge-agent-production.up.railway.app"}/.well-known/agent-registration.json`,
+                    agentURI: `https://${process.env.AGENT_DOMAIN ?? "trace-agent-production.up.railway.app"}/.well-known/agent-registration.json`,
                   },
                 ],
                 trustModels: ["feedback", "inference-validation"],
